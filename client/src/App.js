@@ -320,6 +320,9 @@ class App extends Component {
                 {(hasSongs && loggedIn && !playlistAdded) &&
                   <Button className="mt-3" variant="info" onClick={this.getUserID}>Add As Playlist</Button>
                 }
+                {(hasSongs && loggedIn && playlistAdded) &&
+                  <Button className="mt-3" variant="success">Playlist Added!</Button>
+                }
                 <br/>
                 {hasSongs &&
                   <Button className="my-3" variant="info" onClick={this.resetComponents}>AUXplode Again!</Button>
