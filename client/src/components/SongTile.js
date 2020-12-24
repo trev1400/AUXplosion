@@ -19,9 +19,14 @@ class SongTile extends Component {
                 </Card.Body>
                 <Card.Footer>
                     <div className="d-flex align-items-center justify-content-between">
-                        <a href={this.props.preview} target="_blank" rel="noopener noreferrer">
-                            <FontAwesomeIcon icon={faPlay} className="playIcon"/>   
-                        </a>
+                        {(this.props.preview !== null) &&
+                            <a href={this.props.preview} target="_blank" rel="noopener noreferrer">
+                                <FontAwesomeIcon icon={faPlay} className="playIcon"/>   
+                            </a>
+                        }
+                        {(this.props.preview === null) &&
+                            <div/>
+                        }
                         <h6>{this.props.duration}</h6>
                         <a href={this.props.spotifyLink} target="_blank" rel="noopener noreferrer">
                             <FontAwesomeIcon icon={faSpotify} className="spotifyIcon"/>   
