@@ -186,7 +186,7 @@ class App extends Component {
     const re = /^[0-9\b]+$/;
 
     // Only allow submission if numSongs is a number
-    if (this.state.numSongs === 0 || !re.test(this.state.numSongs)) {
+    if (this.state.numSongs < 1 || !re.test(this.state.numSongs)) {
       this.setState({
         hasInputError: true,
         alertMessage: "# of songs to be generated must be a number between 1-50!"
