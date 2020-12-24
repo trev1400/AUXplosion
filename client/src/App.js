@@ -58,14 +58,15 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    if (this.state.width <= 576 && !this.state.hasSongs && (window.visualViewport.width < window.Width)) {
+    if (this.state.width <= 576 && !this.state.hasSongs && (window.innerHeight < document.getElementById('html').scrollHeight)) {
       document.getElementById('html').style.height = 'auto';
-    }
-    if (this.state.width <= 576 && this.state.hasSongs) {
-      document.getElementById('html').style.height = 'auto';
-    }
-    if (this.state.width > 576 || !this.state.hasSongs) {
-      document.getElementById('html').style.height = '100%';
+    } else {
+      if (this.state.width <= 576 && this.state.hasSongs) {
+        document.getElementById('html').style.height = 'auto';
+      }
+      if (this.state.width > 576 || !this.state.hasSongs) {
+        document.getElementById('html').style.height = '100%';
+      }
     }
   }
 
