@@ -262,8 +262,9 @@ class App extends Component {
       rightColContent = <SongSlider songs= {songs}/>;
     } else {
       // Render input form until we have songs
+      //className={`${!hasSongs && width <= 576 ? "noSongsAlign" : ""}`}
       rightColContent = 
-      <div className={`${!hasSongs && width <= 576 ? "noSongsAlign" : ""}`}>
+      <div>
         <InputGroup size="sm" className="mb-3">
           <FormControl
             value = {numSongsInput}

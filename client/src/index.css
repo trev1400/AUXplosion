@@ -56,10 +56,10 @@ code {
   font-weight: 500;
 }
 
-.noSongsAlign {
+/* .noSongsAlign {
   margin-top: -2em;
   padding-bottom: 2em;
-}
+} */
 
 .customAlert {
   padding: 0.5rem 1rem!important;
