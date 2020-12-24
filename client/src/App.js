@@ -18,6 +18,7 @@ class App extends Component {
       songs:[],
       hasSongs: false,
       inputSong: "",
+      inputSongName: "",
       numSongs: 0,
       numSongsInput: "",
       songLinkInput: "", 
@@ -83,6 +84,7 @@ class App extends Component {
       songs: [],
       hasSongs: false,
       inputSong: "",
+      inputSongName: "",
       numSongs: 0,
       numSongsInput: "",
       songLinkInput: "",
@@ -143,7 +145,8 @@ class App extends Component {
       url: `https://api.spotify.com/v1/users/${this.state.userID}/playlists`,
       method: 'post',
       data: {
-        name: `AUXplosion: Custom Playlist for ${this.state.displayName}!`
+        name: `AUXplosion: Inspired by ${this.state.inputSongName}!`,
+        description: `A custom playlist for ${this.state.displayName} generated at https://auxplosion.herokuapp.com/.`
       },
       headers: {
         'Authorization': 'Bearer ' + this.state.loginToken,
@@ -208,41 +211,55 @@ class App extends Component {
       this.state.inputSong.lastIndexOf("/") + 1, 
       this.state.inputSong.lastIndexOf("?")
     );
+    // Get input song name
     axios ({
-      url: 'https://api.spotify.com/v1/recommendations',
+      url: `https://api.spotify.com/v1/tracks/${seed_track}`,
       method: 'get',
-      params: {
-        limit: this.state.numSongs,
-        seed_tracks: seed_track
-      },
       headers: {
         'Authorization': 'Bearer ' + this.state.token
       }
     })
     .then(res => {
-      const songs = res.data;
-      const uris = songs.tracks.map(song => song.uri);
-      this.setState({ 
-        songs: songs,
-        uris: uris 
-      });
-      if (Object.keys(songs.tracks).length !== 0) {
-        this.setState({ hasSongs: true,})
-      } else {
-        this.setState({
-          hasInputError: true,
-          alertMessage: 'No results found. Ensure that you are copying song links as opposed to artist links.'
-        });
-        this.resetComponents();
+      if (res.data) {
+        this.setState({ inputSongName: res.data.name });
+        // Get recommendations
+        axios ({
+          url: 'https://api.spotify.com/v1/recommendations',
+          method: 'get',
+          params: {
+            limit: this.state.numSongs,
+            seed_tracks: seed_track
+          },
+          headers: {
+            'Authorization': 'Bearer ' + this.state.token
+          }
+        })
+        .then(res => {
+          const songs = res.data;
+          const uris = songs.tracks.map(song => song.uri);
+          this.setState({ 
+            songs: songs,
+            uris: uris 
+          });
+          if (Object.keys(songs.tracks).length !== 0) {
+            this.setState({ hasSongs: true,})
+          } else {
+            this.setState({
+              hasInputError: true,
+              alertMessage: 'No results found. Ensure that you are copying song links as opposed to artist links.'
+            });
+            this.resetComponents();
+          }
+          console.log(this.state.songs);
+        })
+        .catch(error => {
+          this.setState({
+            hasInputError: true,
+            alertMessage: 'Please check your song link. It should begin with: "https://open.spotify.com/track/"'
+          });
+          this.resetComponents();
+        })
       }
-      console.log(this.state.songs);
-    })
-    .catch(error => {
-      this.setState({
-        hasInputError: true,
-        alertMessage: 'Please check your song link. It should begin with: "https://open.spotify.com/track/"'
-      });
-      this.resetComponents();
     })
   }
 
