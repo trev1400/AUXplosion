@@ -243,7 +243,7 @@ class App extends Component {
   }
 
   generateToken() {
-    fetch("http://localhost:9000/getToken")
+    fetch("https://auxme.herokuapp.com/getToken")
     .then(res => res.json())
     .then((res) => {
       this.setState({ isLoaded: true, token: res.access_token });
@@ -311,7 +311,7 @@ class App extends Component {
                 <AuxMeLogo id="logo"/>
                 <br/>
                 {(!loggedIn && !hasSongs) && 
-                  <Button className="mt-3" variant="info" href="http://localhost:9000/login">Login to Spotify</Button>
+                  <Button className="mt-3" variant="info" href="https://auxme.herokuapp.com/login">Login to Spotify</Button>
                 }
                 {(hasSongs && loggedIn && !playlistAdded) &&
                   <Button className="mt-3" variant="info" onClick={this.getUserID}>Add As Playlist</Button>

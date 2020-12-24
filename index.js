@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-var redirect_uri = 'http://localhost:9000/callback';
+var redirect_uri = 'https://auxme.herokuapp.com/callback';
 var querystring = require('querystring');
 var clientID = 'f47f9dc2639f4c1aa825d3d6da135e12';
 var scope = 'playlist-modify-public';
@@ -68,7 +68,7 @@ app.get('/callback', function(req, res, next) {
       })
       .then(response => {
         let token = response.data.access_token;
-        res.redirect(`http://localhost:3000/?token=${token}`)
+        res.redirect(`https://auxme.herokuapp.com/?token=${token}`)
       });
 });
 
