@@ -183,10 +183,10 @@ class App extends Component {
     const re = /^[0-9\b]+$/;
 
     // Only allow submission if numSongs is a number
-    if (!re.test(this.state.numSongs)) {
+    if (this.state.numSongs === 0 || !re.test(this.state.numSongs)) {
       this.setState({
         hasInputError: true,
-        alertMessage: "# of songs to be generated must be a number!"
+        alertMessage: "# of songs to be generated must be a number between 1-50!"
       });
       this.resetComponents();
     } 
@@ -311,7 +311,7 @@ class App extends Component {
             <Row className="h-100 align-items-center">
               <Col id="mainText" className={`${width <= 576 ? "text-center border-bottom border-light py-3" : "text-center border-right border-light py-3"}`}>
                 <h1 id="title" className="text-light display-4">AUXplosion</h1>
-                <h5 id="subheader" className="text-light">A song recommendation generator</h5>
+                <h5 id="subheader" className="text-light">A Spotify-based song recommendation generator</h5>
                 <AUXplosionLogo id="logo"/>
                 <br/>
                 {(!loggedIn && !hasSongs) && 
