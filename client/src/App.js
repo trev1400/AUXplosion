@@ -261,6 +261,13 @@ class App extends Component {
         })
       }
     })
+    .catch( error=> {
+      this.setState({
+        hasInputError: true,
+        alertMessage: 'Please check your song link. It should begin with: "https://open.spotify.com/track/"'
+      });
+      this.resetComponents();
+    })
   }
 
   generateToken() {
