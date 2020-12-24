@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import SongSlider from './components/SongSlider';
-import {ReactComponent as AuxMeLogo} from './images/logo.svg';
+import {ReactComponent as AUXplosionLogo} from './images/logo.svg';
 import {Button, InputGroup, FormControl, Container, Row, Col, Alert} from 'react-bootstrap';
 
 var axios = require('axios');
@@ -139,7 +139,7 @@ class App extends Component {
       url: `https://api.spotify.com/v1/users/${this.state.userID}/playlists`,
       method: 'post',
       data: {
-        name: `AuxMe: Custom Playlist for ${this.state.displayName}!`
+        name: `AUXplosion: Custom Playlist for ${this.state.displayName}!`
       },
       headers: {
         'Authorization': 'Bearer ' + this.state.loginToken,
@@ -243,7 +243,7 @@ class App extends Component {
   }
 
   generateToken() {
-    fetch("https://auxme.herokuapp.com/getToken")
+    fetch("https://auxplosion.herokuapp.com/getToken")
     .then(res => res.json())
     .then((res) => {
       this.setState({ isLoaded: true, token: res.access_token });
@@ -306,19 +306,19 @@ class App extends Component {
           <Container fluid className="h-100">
             <Row className="h-100 align-items-center">
               <Col id="mainText" className={`${width <= 576 ? "text-center border-bottom border-light py-3" : "text-center border-right border-light py-3"}`}>
-                <h1 id="title" className="text-light display-4">AuxMe</h1>
+                <h1 id="title" className="text-light display-4">AUXplosion</h1>
                 <h5 id="subheader" className="text-light">A song recommendation generator</h5>
-                <AuxMeLogo id="logo"/>
+                <AUXplosionLogo id="logo"/>
                 <br/>
                 {(!loggedIn && !hasSongs) && 
-                  <Button className="mt-3" variant="info" href="https://auxme.herokuapp.com/login">Login to Spotify</Button>
+                  <Button className="mt-3" variant="info" href="https://auxplosion.herokuapp.com/login">Login to Spotify</Button>
                 }
                 {(hasSongs && loggedIn && !playlistAdded) &&
                   <Button className="mt-3" variant="info" onClick={this.getUserID}>Add As Playlist</Button>
                 }
                 <br/>
                 {hasSongs &&
-                  <Button className="my-3" variant="info" onClick={this.resetComponents}>AuxMe Again!</Button>
+                  <Button className="my-3" variant="info" onClick={this.resetComponents}>AUXplode Again!</Button>
                 }
               </Col>
               <Col sm={true} className={`${width <= 576 && hasSongs ? "my-3 px-5" : "px-4"}`}>
