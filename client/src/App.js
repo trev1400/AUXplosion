@@ -58,6 +58,9 @@ class App extends Component {
   }
 
   componentDidUpdate() {
+    if (this.state.width <= 576 && !this.state.hasSongs && (window.visualViewport.width < window.Width)) {
+      document.getElementById('html').style.height = 'auto';
+    }
     if (this.state.width <= 576 && this.state.hasSongs) {
       document.getElementById('html').style.height = 'auto';
     }
